@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>건물 부수기</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #cfd8de; font-family: -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  canvas { display: block; }
+  #hud { position: fixed; top: 16px; left: 16px; background: rgba(255,255,255,.88); border-radius: 10px; padding: 12px 14px; font-size: 13px; line-height: 1.6; color: #2c2c2a; max-width: 260px; }
+  #hud b { font-weight: 600; }
+  #hud .row { display: flex; gap: 6px; margin-top: 8px; }
+  #hud button { font: inherit; border: 1px solid #b4b2a9; background: #fff; border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+  #hud button.on { background: #2c2c2a; color: #fff; border-color: #2c2c2a; }
+  #hud .row button { padding: 3px 7px; }
+  .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: 0; }
+  #hud { max-width: 300px; }
+  #legend { margin-top: 6px; font-size: 12px; color: #5f5e5a; }
+  #legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin: 0 3px 0 6px; }
+  #legend i:first-child { margin-left: 0; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="hud">
+  <b>건물 부수기 · 시제품 3</b>
+  <div class="row">
+    <button id="mPick" class="on">기둥 빼기 (1)</button>
+    <button id="mWreck">철퇴 (2)</button>
+    <button id="mBlast">발파 (3)</button>
+  </div>
+  <div id="hint" style="margin-top:6px">기둥 클릭 = 빼기 · 드래그 = 돌려 보기</div>
+  <div id="blastPanel" style="display:none">
+    <div class="row" style="align-items:center">지연
+      <button id="d0" class="on"><i class="sw" style="background:#e04030"></i>0초</button>
+      <button id="d1"><i class="sw" style="background:#f08a24"></i>0.5</button>
+      <button id="d2"><i class="sw" style="background:#e6c229"></i>1</button>
+      <button id="d3"><i class="sw" style="background:#8a6ad8"></i>1.5</button>
+    </div>
+    <div class="row"><button id="fire" style="font-weight:600">발파! (Space)</button></div>
+  </div>
+  <div id="result" style="margin-top:4px"></div>
+  무너진 블록 <span id="count">0</span>
+  <div class="row">
+    <button id="reset">다시 세우기 (R)</button>
+    <button id="stress" class="on">하중 색 (L)</button>
+  </div>
+  <div id="legend"><i style="background:#bdb8ad"></i>여유<i style="background:#f0a040"></i>버거움<i style="background:#e04030"></i>곧 부러짐</div>
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>
